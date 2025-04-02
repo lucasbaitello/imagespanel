@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* React Grid Layout overrides/enhancements */
+.react-grid-layout {
+  @apply relative duration-200 ease-in-out; /* Keep valid Tailwind classes */
+  transition-property: height; /* Explicitly define the CSS property to transition */
+  /* Removed the problematic @apply transition-height */
+}
+.react-grid-item {
+  @apply transition-all duration-200 ease-in-out;
+}
+.react-grid-item.cssTransforms {
+  @apply transition-transform duration-200 ease-in-out;
+}
+.react-grid-item.resizing {
+  @apply opacity-90 z-10;
+}
+.react-grid-item.react-draggable-dragging {
+  @apply transition-none opacity-80 z-30 shadow-2xl;
+}
+.react-grid-item.react-grid-placeholder {
+  @apply bg-blue-200 opacity-40 rounded-md transition-transform duration-100 ease-in-out z-0;
+   /* Ensure placeholder respects border radius */
+   border-radius: inherit; /* Or use a variable if you have one */
+}
+
+/* Style the resize handle */
+.react-resizable-handle {
+  @apply absolute w-5 h-5 bottom-0 right-0 bg-gray-500 bg-opacity-50 p-0 cursor-se-resize;
+  border-radius: 0 0 4px 0; /* Adjust if needed */
+}
+.react-resizable-handle::after {
+  content: "";
+  @apply absolute bottom-1 right-1 w-2 h-2 border-r-2 border-b-2 border-white opacity-70;
+}
+
+/* Ensure content within grid items doesn't overflow weirdly during resize/drag */
+.react-grid-item > * {
+  width: 100%;
+  height: 100%;
+}
